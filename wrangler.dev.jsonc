@@ -1,0 +1,9 @@
+{
+	"name": "sistema-reloj-control",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-06-26",
+	"compatibility_flags": ["nodejs_compat"],
+	"secrets": {
+		"required": ["DATABASE_URL", "BETTER_AUTH_URL", "BETTER_AUTH_SECRET"]
+	}
+}

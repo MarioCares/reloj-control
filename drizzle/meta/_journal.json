@@ -1,0 +1,27 @@
+{
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1782514128765,
+			"tag": "0000_keen_zzzax",
+			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "7",
+			"when": 1782576986112,
+			"tag": "0001_wooden_young_avengers",
+			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "7",
+			"when": 1782757266443,
+			"tag": "0002_elite_vector",
+			"breakpoints": true
+		}
+	]
+}

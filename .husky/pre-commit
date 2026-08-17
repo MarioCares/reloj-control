@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# 1. Ejecuta Biome y corrige los archivos que están en Staging
+pnpm biome check --write .
+
+# 2. Vuelve a añadir los archivos modificados por Biome al Staging antes de cerrar el commit
+git add .

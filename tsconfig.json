@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"useDefineForClassFields": true,
+		"lib": ["DOM", "DOM.Iterable", "ES2022"],
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"jsx": "react-jsx",
+		"jsxImportSource": "react",
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"strict": true,
+		"paths": {
+			"@/*": ["./src/*"],
+			"@shared/*": ["./src/shared/*"],
+			"@modules/*": ["./src/modules/*"]
+		},
+		"types": ["node", "vite/client", "./worker-configuration.d.ts"]
+	},
+	"include": ["src/**/*", "drizzle.config.ts", "worker-configuration.d.ts"],
+	"exclude": ["node_modules", "dist"]
+}
