@@ -1,0 +1,45 @@
+import { Hono } from "hono";
+import type { AppEnv } from "@/types/app-env";
+import type { ImportedClockUser } from "../../application/dtos/imported-clock-user";
+import { FaceT2UserDatParser } from "../../application/import-employees.use-case";
+import { employeeComposition } from "../composition/employee.composition";
+
+export const employeesRoute = new Hono<AppEnv>();
+
+const parser = new FaceT2UserDatParser();
+
+employeesRoute.post("/import", async (c) => {
+	const formData = await c.req.formData();
+
+	const file = formData.get("file");
+
+	if (!(file instanceof File)) {
+		return c.json(
+			{
+				message: "Archivo user.dat es requerido",
+			},
+			400,
+		);
+	}
+
+	let importedUsers: ImportedClockUser[];
+
+	try {
+		const buffer = await file.arrayBuffer();
+
+		importedUsers = parser.parse(new Uint8Array(buffer));
+	} catch {
+		return c.json(
+			{
+				message: "Archivo user.dat inválido para Qwantec FACE-T2",
+			},
+			400,
+		);
+	}
+
+	const { importEmployees } = employeeComposition(c.get("db"));
+
+	const result = await importEmployees.execute(importedUsers);
+
+	return c.json(result, 200);
+});
