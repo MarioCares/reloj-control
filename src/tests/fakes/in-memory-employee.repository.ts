@@ -27,4 +27,8 @@ export class InMemoryEmployeeRepository implements EmployeeRepository {
 
 		this.employees[index] = employee;
 	}
+
+	async findAll(): Promise<Employee[]> {
+		return [...this.employees];
+	}
 }

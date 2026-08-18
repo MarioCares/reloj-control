@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import type { AppEnv } from "@/types/app-env";
 import type { ImportedClockUser } from "../../application/dtos/imported-clock-user";
 import { FaceT2UserDatParser } from "../../application/import-employees.use-case";
+import { toEmployeeDto } from "../../infrastructure/persistence/employee.mapper";
 import { employeeComposition } from "../composition/employee.composition";
 
 export const employeesRoute = new Hono<AppEnv>();
@@ -42,4 +43,11 @@ employeesRoute.post("/import", async (c) => {
 	const result = await importEmployees.execute(importedUsers);
 
 	return c.json(result, 200);
+});
+
+employeesRoute.get("/", async (c) => {
+	const { listEmployees } = employeeComposition(c.get("db"));
+	const employees = await listEmployees.execute();
+
+	return c.json(employees.map(toEmployeeDto), 200);
 });

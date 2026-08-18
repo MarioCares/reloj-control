@@ -39,4 +39,10 @@ export class DrizzleEmployeeRepository implements EmployeeRepository {
 			})
 			.where(eq(employees.id, employee.id));
 	}
+
+	async findAll(): Promise<Employee[]> {
+		const rows = await this.db.select().from(employees).orderBy(employees.name);
+
+		return rows.map(toDomain);
+	}
 }

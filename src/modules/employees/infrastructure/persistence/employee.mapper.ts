@@ -1,3 +1,4 @@
+import type { EmployeeDto } from "../../application/dtos/employee.dto";
 import type { employees } from "../../backend/database/schema/employee.schema";
 import { Employee } from "../../domain/employee";
 
@@ -14,6 +15,16 @@ export function toDomain(row: EmployeeRow): Employee {
 }
 
 export function toPersistence(employee: Employee) {
+	return {
+		id: employee.id,
+		deviceUserId: employee.deviceUserId,
+		externalId: employee.externalId,
+		name: employee.name,
+		active: employee.active,
+	};
+}
+
+export function toEmployeeDto(employee: Employee): EmployeeDto {
 	return {
 		id: employee.id,
 		deviceUserId: employee.deviceUserId,
