@@ -7,7 +7,7 @@ export type EmployeeProps = {
 };
 
 export class Employee {
-	private constructor(private readonly props: EmployeeProps) {}
+	private constructor(private props: EmployeeProps) {}
 
 	static create(props: EmployeeProps): Employee {
 		if (props.deviceUserId <= 0) {
@@ -25,6 +25,34 @@ export class Employee {
 			name,
 			externalId: props.externalId.trim(),
 		});
+	}
+
+	updateFromClock(props: {
+		name: string;
+		externalId: string;
+		active: boolean;
+	}): void {
+		const name = props.name.trim();
+
+		if (!name) {
+			throw new Error("Employee name is required");
+		}
+
+		this.props.name = name;
+		this.props.externalId = props.externalId.trim();
+		this.props.active = props.active;
+	}
+
+	hasClockDataChanged(props: {
+		name: string;
+		externalId: string;
+		active: boolean;
+	}): boolean {
+		return (
+			this.name !== props.name.trim() ||
+			this.externalId !== props.externalId.trim() ||
+			this.active !== props.active
+		);
 	}
 
 	get id(): string {
