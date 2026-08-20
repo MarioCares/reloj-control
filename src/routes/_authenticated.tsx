@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { requireSession } from "@/modules/identity/frontend/guards/require-session";
+import { AuthenticatedNavbar } from "@/shared/ui/navigation/authenticated-navbar";
 
 export const Route = createFileRoute("/_authenticated")({
 	beforeLoad: requireSession,
@@ -7,5 +8,12 @@ export const Route = createFileRoute("/_authenticated")({
 });
 
 function AuthenticatedLayout() {
-	return <Outlet />;
+	return (
+		<div className="min-h-screen">
+			<AuthenticatedNavbar />
+			<main>
+				<Outlet />
+			</main>
+		</div>
+	);
 }

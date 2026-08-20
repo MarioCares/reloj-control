@@ -1,13 +1,7 @@
 import { Employee } from "../../domain/employee";
 import type { EmployeeRepository } from "../../domain/repositories/employee.repository";
+import type { ImportEmployeesResult } from "../dtos/import-employees-result.dto";
 import type { ImportedClockUser } from "../dtos/imported-clock-user";
-
-export type ImportEmployeesResult = {
-	total: number;
-	created: number;
-	updated: number;
-	unchanged: number;
-};
 
 export class ImportEmployeesUseCase {
 	constructor(private readonly employeeRepository: EmployeeRepository) {}

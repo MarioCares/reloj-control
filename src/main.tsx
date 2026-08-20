@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 
 import { routeTree } from "./routeTree.gen";
 import "./index.css";
+import { QueryProvider } from "./shared/query";
 
 const router = createRouter({
 	routeTree,
@@ -23,6 +24,8 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<QueryProvider>
+			<RouterProvider router={router} />
+		</QueryProvider>
 	</React.StrictMode>,
 );
