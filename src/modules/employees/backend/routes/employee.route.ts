@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import type { AppEnv } from "@/types/app-env";
 import type { ImportedClockUser } from "../../application/dtos/imported-clock-user";
-import { FaceT2UserDatParser } from "../../application/import-employees.use-case";
+import { FaceT2UserDatParser } from "../../infrastructure/face-t2/face-t2-user-dat.parser";
 import { toEmployeeDto } from "../../infrastructure/persistence/employee.mapper";
 import { employeeComposition } from "../composition/employee.composition";
 
@@ -17,6 +17,7 @@ employeesRoute.post("/import", async (c) => {
 	if (!(file instanceof File)) {
 		return c.json(
 			{
+				success: false,
 				message: "Archivo user.dat es requerido",
 			},
 			400,
@@ -32,6 +33,7 @@ employeesRoute.post("/import", async (c) => {
 	} catch {
 		return c.json(
 			{
+				success: false,
 				message: "Archivo user.dat inválido para Qwantec FACE-T2",
 			},
 			400,
@@ -42,12 +44,24 @@ employeesRoute.post("/import", async (c) => {
 
 	const result = await importEmployees.execute(importedUsers);
 
-	return c.json(result, 200);
+	return c.json(
+		{
+			sucess: true,
+			data: result,
+		},
+		200,
+	);
 });
 
 employeesRoute.get("/", async (c) => {
 	const { listEmployees } = employeeComposition(c.get("db"));
 	const employees = await listEmployees.execute();
 
-	return c.json(employees.map(toEmployeeDto), 200);
+	return c.json(
+		{
+			success: true,
+			data: employees.map(toEmployeeDto),
+		},
+		200,
+	);
 });
