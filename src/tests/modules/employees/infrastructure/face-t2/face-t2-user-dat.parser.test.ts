@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
-import { FaceT2UserDatParser } from "@/modules/employees/application/import-employees.use-case";
+import { FaceT2UserDatParser } from "@/modules/employees/infrastructure/face-t2/face-t2-user-dat.parser";
 
 describe("FaceT2UserDatParser", () => {
 	const parser = new FaceT2UserDatParser();

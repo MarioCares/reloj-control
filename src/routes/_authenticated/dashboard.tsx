@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Separator } from "@/components/ui/separator";
 import { EmployeesDashboardCard } from "@/modules/employees/frontend/components/employees-dashboard-card";
 
@@ -7,14 +7,6 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 });
 
 function DashboardPage() {
-	const navigate = useNavigate();
-
-	function goTo(page: string) {
-		navigate({
-			to: page,
-		});
-	}
-
 	return (
 		<div className="p-8 flex flex-col gap-4">
 			<h1 className="text-2xl font-bold">Dashboard</h1>
