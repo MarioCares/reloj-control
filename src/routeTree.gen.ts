@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAdminImport_attlogRouteImport } from './routes/_authenticated/admin/import_attlog'
 import { Route as AuthenticatedAdminImport_employeesRouteImport } from './routes/_authenticated/admin/import_employees'
 
 const IndexRoute = IndexRouteImport.update({
@@ -34,6 +35,12 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedAdminImport_attlogRoute =
+  AuthenticatedAdminImport_attlogRouteImport.update({
+    id: '/admin/import_attlog',
+    path: '/admin/import_attlog',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAdminImport_employeesRoute =
   AuthenticatedAdminImport_employeesRouteImport.update({
     id: '/admin/import_employees',
@@ -45,12 +52,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/admin/import_attlog': typeof AuthenticatedAdminImport_attlogRoute
   '/admin/import_employees': typeof AuthenticatedAdminImport_employeesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/admin/import_attlog': typeof AuthenticatedAdminImport_attlogRoute
   '/admin/import_employees': typeof AuthenticatedAdminImport_employeesRoute
 }
 export interface FileRoutesById {
@@ -59,19 +68,31 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/admin/import_attlog': typeof AuthenticatedAdminImport_attlogRoute
   '/_authenticated/admin/import_employees': typeof AuthenticatedAdminImport_employeesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard' | '/admin/import_employees'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/admin/import_attlog'
+    | '/admin/import_employees'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard' | '/admin/import_employees'
+  to:
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/admin/import_attlog'
+    | '/admin/import_employees'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/login'
     | '/_authenticated/dashboard'
+    | '/_authenticated/admin/import_attlog'
     | '/_authenticated/admin/import_employees'
   fileRoutesById: FileRoutesById
 }
@@ -111,6 +132,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/admin/import_attlog': {
+      id: '/_authenticated/admin/import_attlog'
+      path: '/admin/import_attlog'
+      fullPath: '/admin/import_attlog'
+      preLoaderRoute: typeof AuthenticatedAdminImport_attlogRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/admin/import_employees': {
       id: '/_authenticated/admin/import_employees'
       path: '/admin/import_employees'
@@ -123,11 +151,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedAdminImport_attlogRoute: typeof AuthenticatedAdminImport_attlogRoute
   AuthenticatedAdminImport_employeesRoute: typeof AuthenticatedAdminImport_employeesRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedAdminImport_attlogRoute: AuthenticatedAdminImport_attlogRoute,
   AuthenticatedAdminImport_employeesRoute:
     AuthenticatedAdminImport_employeesRoute,
 }
