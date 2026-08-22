@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { validateEnv } from "./config/env";
+import { attendanceRoute } from "./modules/attendance/backend/routes/attlog.route";
 import { employeesRoute } from "./modules/employees/backend/routes/employee.route";
 import { createAuth } from "./modules/identity/backend/auth/auth";
 import { requireAuth } from "./modules/identity/backend/middleware/require-auth";
@@ -53,7 +54,7 @@ app.get("/api/v1/protected/me", requireAuth, (c) => {
 });
 
 app.route("/api/v1/admin", adminTestRoute);
-
 app.route("/api/v1/employees", employeesRoute);
+app.route("/api/v1/attendances", attendanceRoute);
 
 export default app;
